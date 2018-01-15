@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo01</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="renderer" content="webkit">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 避免IE使用兼容模式 -->
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div>
+    <h2>callApp:点击button1,会给app传参（https://www.baidu.com）</h2>
+    <button class="button1" onclick="callApp('https:\/\/www.baidu.com')">button1</button>
+</div>
+<div style="margin-top:200px">
+    <h2>callhtml:当app调用callHtml方法，页面会做出响应（下面的方框会改变背景色并显示传参）</h2>
+    <div class="showResultArea" style="border:1px solid black;width: 50%;height:100px;display: block"></div>
+</div>
+
+
+</body>
+<script>
+
+    /*@desc js调起app的方法，并传参param1,param2*/
+    function callApp(param1) {
+        window.webkit.messageHandlers.weDoctorApp.postMessage('weixin://wap/pay?prepayid%3Dwx2017121310043352e70d28530151281343&package=640140023&noncestr=1513130675&sign=0951e81b13f5bcf285a1024982da6e3c')
+        window.webkit.messageHandlers.doctorApp.postMessage('123')
+
+    }
+    /*@desc 页面提供给app的方法，可以获取传参param1,param2*/
+    function callHtml(param1, param2) {
+        $('.showResultArea').css('background-color','pink');
+        $('.showResultArea').text('传参是:'+param1+' '+param2);
+    }
+
+</script>
+</html>
